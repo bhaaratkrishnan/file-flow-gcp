@@ -17,5 +17,5 @@ export default defineEventHandler(async (event) => {
     action:"read",
     version:"v2"
   });
-  return fileUpload.makePublic();
+  return url;
 });
