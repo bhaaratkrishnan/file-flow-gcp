@@ -1,5 +1,4 @@
 import { getEntity } from "~/server/utils/datastore";
-import { shortUrlResponse } from "~/server/utils/types";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");

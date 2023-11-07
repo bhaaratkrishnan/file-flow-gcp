@@ -34,13 +34,18 @@ export default defineEventHandler(async (event) => {
     const bucket = storage.bucket(bucketName);
     const fileUpload = bucket.file(`${file.name}`);
     await fileUpload.save(fileBuffer);
+    console.log("File Uploaded");
+    
     const [url] = await fileUpload.getSignedUrl({
       expires: Date.now() + 60 * 60 * 1000,
       action: "read",
       version: "v4",
     });
+    console.log("URL Signed");
+    
     let shortUrlId = generateShortUrlId();
     console.log(shortUrlId);
+  
     while (!(await checkKeyAvailability("urls", shortUrlId))) {
       shortUrlId = generateShortUrlId();
     }
