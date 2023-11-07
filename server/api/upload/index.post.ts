@@ -32,20 +32,20 @@ export default defineEventHandler(async (event) => {
     const bucketName = "test-bucket-code-vipa";
     const storage = new Storage();
     const bucket = storage.bucket(bucketName);
-    const fileUpload = bucket.file(`${file.name}`);
+    const fileUpload = bucket.file(`${clientData.ip}/${file.name}`);
     await fileUpload.save(fileBuffer);
     console.log("File Uploaded");
-    
+
     const [url] = await fileUpload.getSignedUrl({
       expires: Date.now() + 60 * 60 * 1000,
       action: "read",
       version: "v4",
     });
     console.log("URL Signed");
-    
+
     let shortUrlId = generateShortUrlId();
     console.log(shortUrlId);
-  
+
     while (!(await checkKeyAvailability("urls", shortUrlId))) {
       shortUrlId = generateShortUrlId();
     }
