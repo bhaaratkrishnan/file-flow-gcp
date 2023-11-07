@@ -2,11 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
-    baseUrl: "localhost:3000",
+    baseUrl: "file-flow-otcrggkcra-el.a.run.app",
   },
   
   appConfig: {
-    baseUrl: "localhost:3000",
+    baseUrl: "file-flow-otcrggkcra-el.a.run.app",
   },
   modules: [
     "@nuxtjs/tailwindcss",
