@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient-primary {
+  @apply bg-gradient-to-tr from-blue-500 via-red-500 to-yellow-500;
+}
+
+.gradient-accent {
+  @apply bg-gradient-to-tl transition from-blue-500 via-red-500 to-yellow-500 hover:from-blue-600 hover:via-red-600 hover:to-yellow-600;
+}
+

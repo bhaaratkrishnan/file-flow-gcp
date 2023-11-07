@@ -11,11 +11,20 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/color-mode": "^3.3.0",
+    "@nuxtjs/tailwindcss": "^6.9.4",
+    "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.0",
+    "nuxt-icon": "^0.6.3",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@google-cloud/storage": "^7.5.0"
+    "@google-cloud/datastore": "^8.2.2",
+    "@google-cloud/firestore": "^7.1.0",
+    "@google-cloud/storage": "^7.5.0",
+    "@morev/vue-transitions": "^2.3.6"
   }
 }
