@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
-    GOOGLE_APPLICATION_CREDENTIALS: "~/server/service_account.json",
     baseUrl: "localhost:3000",
   },
   appConfig: {
