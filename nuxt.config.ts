@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     baseUrl: "localhost:3000",
   },
+  
   appConfig: {
     baseUrl: "localhost:3000",
   },
