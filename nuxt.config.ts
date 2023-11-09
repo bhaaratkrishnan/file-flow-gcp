@@ -13,7 +13,6 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/color-mode",
     "@morev/vue-transitions/nuxt",
-    "@vueuse/motion/nuxt"
   ],
   css: ["~/assets/css/main.css"],
   postcss: {
