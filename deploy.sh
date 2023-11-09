@@ -1,0 +1,3 @@
+docker build . -t asia-south1-docker.pkg.dev/serverless-web-apis-test/vertex-repo/file-flow-image
+docker push asia-south1-docker.pkg.dev/serverless-web-apis-test/vertex-repo/file-flow-image
+gcloud run deploy file-flow --allow-unauthenticated --platform=managed --region=asia-south1 --image=asia-south1-docker.pkg.dev/serverless-web-apis-test/vertex-repo/file-flow-image --service-account=share-safe-service-account-2@serverless-web-apis-test.iam.gserviceaccount.com
