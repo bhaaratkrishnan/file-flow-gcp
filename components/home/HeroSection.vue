@@ -42,11 +42,11 @@ onMounted(() => {
     >
       FileFlow
     </div>
-    <div class="text-zinc-950">
+    <div class="text-zinc-950 dark:text-zinc-50">
       powered by Google Cloud <Icon name="logos:google-cloud" class="text-xl" />
     </div>
     <!-- tagline  -->
-    <div class="text-xl lg:text-2xl text-zinc-950 text-center mx-2">
+    <div class="text-xl lg:text-2xl text-zinc-950 dark:text-zinc-50 text-center mx-2">
       Share and Quickly Distribute your <br />
         <span
           :key="currentFileIndex"
@@ -65,7 +65,7 @@ onMounted(() => {
       </button>
       <button
         @click="scrollToWhatIsFileFlow"
-        class="text-zinc-950 shadow-lg font-bold border-[3px] px-4 py-2 rounded-lg hover:bg-zinc-200"
+        class="text-zinc-950 dark:text-zinc-50 shadow-lg font-bold border-[3px] px-4 py-2 rounded-lg hover:bg-zinc-200 dark:hover:bg-transparent dark:border-slate-800 dark:bg-slate-950 dark:shadow-zinc-900"
       >
         What is FileFlow?
       </button>

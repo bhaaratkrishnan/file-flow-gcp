@@ -1,8 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="flex relative min-h-screen">
-    <img src="~/assets/images/light-bg.jpg" alt="" />
+  <div
+    class="flex relative min-h-screen dark:bg-[url('~/assets/images/dark-bg.jpg')] bg-[url('~/assets/images/light-bg.jpg')] bg-center bg-cover"
+  >
+    <!-- <img src="~/assets/images/light-bg.jpg" alt="" /> -->
     <div
       class="absolute backdrop-blur-3xl backdrop-brightness-95 inset-0 flex flex-col"
     >
@@ -18,14 +20,13 @@
         >
           <div class="text-zinc-950">
             Made by
-            <span class="gradient-primary font-semibold bg-clip-text text-transparent"
+            <span
+              class="gradient-primary font-semibold bg-clip-text text-transparent"
               >Bhaarat Krishnan</span
             >
             <br />
             Powered by
-            <span class=""
-              >Google Cloud</span
-            >
+            <span class="">Google Cloud</span>
           </div>
         </div>
       </div>
