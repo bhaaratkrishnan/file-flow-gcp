@@ -46,7 +46,7 @@ onMounted(() => {
       powered by Google Cloud <Icon name="logos:google-cloud" class="text-xl" />
     </div>
     <!-- tagline  -->
-    <div class="text-xl lg:text-2xl text-zinc-950 text-center">
+    <div class="text-xl lg:text-2xl text-zinc-950 text-center mx-2">
       Share and Quickly Distribute your <br />
         <span
           :key="currentFileIndex"
