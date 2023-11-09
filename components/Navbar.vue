@@ -1,9 +1,9 @@
 <script setup lang="ts">
 </script>
 <template>
-  <div class="flex flex-row my-4 mx-16 justify-between items-center">
+  <div class="flex flex-row my-4 mx-4 lg:mx-16 justify-between items-center">
     <div
-      class="gradient-primary bg-clip-text text-transparent font-bold text-xl px-8"
+      class="gradient-primary bg-clip-text text-transparent font-bold text-xl lg:px-8"
     >
       FileFlow
     </div>

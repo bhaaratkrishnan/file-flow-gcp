@@ -23,11 +23,11 @@ async function animateNotification(text?: string) {
 <template>
   <div class="flex flex-col py-12 justify-center items-center" id="get-started">
     <div class="text-center font-bold text-4xl text-zinc-950">Get Started</div>
-    <div class="leading-8 my-8">
+    <div class="leading-8 my-8 mx-4 lg:mx-0">
       Simply upload your files here, and let FileFlow effortlessly generate
       shareable links for your convenience.
     </div>
-    <div class="flex flex-row space-x-28 w-full">
+    <div class="flex flex-col lg:flex-row space-y-16 lg:space-y-0 lg:space-x-28 w-full">
       <!-- form  -->
       <UploadFile
         @submitted="refresh"
@@ -39,7 +39,7 @@ async function animateNotification(text?: string) {
       />
       <!-- stats  -->
       <div
-        class="flex flex-col text-zinc-950 items-start border-2 p-8 rounded-lg w-1/3 shadow-lg hover:shadow-md transition"
+        class="flex flex-col text-zinc-950 items-start border-2 p-8 m-2 lg:m-0 rounded-lg lg:w-1/3 shadow-lg hover:shadow-md transition"
       >
         <div class="text-2xl font-bold mb-4">Today's Stats</div>
         <LoadingSpinner v-if="pending" />

@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <div class="mx-28 my-16 flex flex-col space-y-8" id="what-is-file-flow">
+  <div class="mx-4 lg:mx-28 my-16 flex flex-col space-y-8" id="what-is-file-flow">
     <div class="text-zinc-950 font-bold text-4xl text-center">
       What is
       <span class="gradient-primary bg-clip-text text-transparent"
@@ -17,7 +17,7 @@
     <div class="text-center text-zinc-950 font-semibold text-2xl py-4">
       Tech Stack
     </div>
-    <div class="grid grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
       <div
         class="border-2 p-4 text-lg font-bold rounded-xl shadow-lg hover:shadow-none hover:scale-105 transition text-white bg-gradient-to-r from-sky-300 to-sky-600"
       >

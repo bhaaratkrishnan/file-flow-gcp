@@ -53,7 +53,7 @@ async function handleClick() {
           @change="handleFileChange"
         />
         <div
-          class="flex flex-col p-16 text-zinc-950 shadow-lg text-center space-y-4 border-2 rounded-lg"
+          class="flex flex-col m-2 lg:m-0 p-16 text-zinc-950 shadow-lg text-center space-y-4 border-2 rounded-lg"
         >
           <div class="p-2 text-xl text-white font-bold bg-blue-500 rounded-2xl">
             <Icon

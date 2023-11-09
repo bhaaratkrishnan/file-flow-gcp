@@ -9,6 +9,31 @@ function scrollToGetStarted() {
 function scrollToWhatIsFileFlow() {
   scrollToSection("what-is-file-flow");
 }
+const fileNamesArray = [
+  "Files",
+  ".txt",
+  ".pdf",
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".zip",
+  ".mp4",
+  ".mkv",
+  ".mp3",
+];
+const currentFileIndex = ref(0);
+function changeFileNames() {
+  if (currentFileIndex.value === fileNamesArray.length - 1) {
+    currentFileIndex.value = 0;
+  } else {
+    currentFileIndex.value += 1;
+  }
+  setTimeout(() => changeFileNames(), 1000);
+}
+
+onMounted(() => {
+  setTimeout(() => changeFileNames(), 2000);
+});
 </script>
 <template>
   <div class="flex flex-col space-y-8 justify-center items-center min-h-screen">
@@ -17,16 +42,21 @@ function scrollToWhatIsFileFlow() {
     >
       FileFlow
     </div>
-    <div class="">
+    <div class="text-zinc-950">
       powered by Google Cloud <Icon name="logos:google-cloud" class="text-xl" />
     </div>
     <!-- tagline  -->
-    <div class="text-2xl text-zinc-950 text-center">
-      Share and Quickly Distribute your
-      <span class="font-mono font-bold"> Files </span>
+    <div class="text-xl lg:text-2xl text-zinc-950 text-center">
+      Share and Quickly Distribute your <br />
+        <span
+          :key="currentFileIndex"
+          class="font-mono font-bold gradient-accent bg-clip-text text-transparent"
+        >
+            {{ fileNamesArray[currentFileIndex] }}
+        </span>
     </div>
     <!-- button row  -->
-    <div class="flex flex-row space-x-8">
+    <div class="flex flex-row space-x-4 lg:space-x-8">
       <button
         @click="scrollToGetStarted"
         class="text-white gradient-accent px-4 py-2 font-bold rounded-lg shadow-lg"
@@ -34,7 +64,7 @@ function scrollToWhatIsFileFlow() {
         Get Started
       </button>
       <button
-      @click="scrollToWhatIsFileFlow"
+        @click="scrollToWhatIsFileFlow"
         class="text-zinc-950 shadow-lg font-bold border-[3px] px-4 py-2 rounded-lg hover:bg-zinc-200"
       >
         What is FileFlow?
