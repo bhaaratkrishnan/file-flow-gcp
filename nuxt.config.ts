@@ -2,11 +2,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
-    baseUrl: "file-flow-otcrggkcra-el.a.run.app",
   },
   
   appConfig: {
-    baseUrl: "file-flow-otcrggkcra-el.a.run.app",
   },
   modules: [
     "@nuxtjs/tailwindcss",

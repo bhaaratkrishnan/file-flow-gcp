@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
   try {
     const formData = await readFormData(event);
     const clientIp = getHeader(event, "X-Forwarded-For") ?? "Undefined";
+    const currentHost = getHeader(event,"host")
     const clientData = await $fetch("/api/user", {
       method: "get",
       headers: {
@@ -63,9 +64,11 @@ export default defineEventHandler(async (event) => {
     });
     return {
       code: 200,
-      detail: `${useRuntimeConfig().baseUrl}/api/upload/${shortUrlId}`,
+      detail: `${currentHost}/api/upload/${shortUrlId}`,
     };
   } catch (err) {
+    console.log(err);
+    
     return { code: 400, detail: "Error Occured Try Again After Sometime" };
   }
 });

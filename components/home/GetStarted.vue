@@ -18,6 +18,7 @@ async function animateNotification(text?: string) {
     return;
   }
 }
+const currentHost = window.location.host;
 </script>
 
 <template>
@@ -27,7 +28,9 @@ async function animateNotification(text?: string) {
       Simply upload your files here, and let FileFlow effortlessly generate
       shareable links for your convenience.
     </div>
-    <div class="flex flex-col lg:flex-row space-y-16 lg:space-y-0 lg:space-x-28 w-full">
+    <div
+      class="flex flex-col lg:flex-row space-y-16 lg:space-y-0 lg:space-x-28 w-full"
+    >
       <!-- form  -->
       <UploadFile
         @submitted="refresh"
@@ -65,7 +68,7 @@ async function animateNotification(text?: string) {
               @click="
                 () => {
                   copyToClipboard(
-                    `${useAppConfig().baseUrl}/api/upload/${link}`
+                    `${currentHost}/api/upload/${link}`
                   );
                   animateNotification();
                 }
