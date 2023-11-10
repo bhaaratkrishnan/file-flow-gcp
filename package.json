@@ -25,6 +25,8 @@
     "@google-cloud/datastore": "^8.2.2",
     "@google-cloud/firestore": "^7.1.0",
     "@google-cloud/storage": "^7.5.0",
-    "@morev/vue-transitions": "^2.3.6"
+    "@morev/vue-transitions": "^2.3.6",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
   }
 }
