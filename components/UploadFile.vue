@@ -53,7 +53,7 @@ async function handleClick() {
           @change="handleFileChange"
         />
         <div
-          class="flex flex-col m-2 lg:m-0 p-16 text-zinc-950 shadow-lg text-center space-y-4 border-2 rounded-lg"
+          class="flex flex-col m-2 lg:m-0 p-16 text-zinc-950 shadow-lg text-center space-y-4 border-2 dark:border-gray-800 dark:bg-slate-900 dark:shadow-zinc-800 rounded-lg"
         >
           <div class="p-2 text-xl text-white font-bold bg-blue-500 rounded-2xl">
             <Icon
@@ -62,18 +62,18 @@ async function handleClick() {
             />
             Upload File
           </div>
-          <div class="text-zinc-600">Or drop your files here</div>
-          <div class="text-zinc-950">{{ fileName }}</div>
+          <div class="text-zinc-600 dark:text-zinc-400">Or drop your files here</div>
+          <div class="text-zinc-950 dark:text-zinc-50">{{ fileName }}</div>
         </div>
       </div>
       <button
-        class="gradient-accent text-white font-bold px-3 py-2 text-xl rounded-lg"
+        class="gradient-accent text-white dark:shadow-zinc-600 shadow-lg  font-bold px-3 py-2 text-xl rounded-lg"
       >
         Submit
       </button>
     </form>
     <button
-      class="my-4 p-4 border-2 rounded-xl"
+      class="my-8 p-4 dark:text-zinc-50 dark:bg-gray-800 dark:border-gray-900 border-2 rounded-xl"
       v-if="data || loading"
       @click="() => {if(!loading){
           copyToClipboard(data as string);

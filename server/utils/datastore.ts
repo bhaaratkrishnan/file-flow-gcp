@@ -1,26 +1,19 @@
-import { Datastore } from "@google-cloud/datastore";
-import { GetResponse } from "@google-cloud/datastore/build/src/request";
-const datastore = new Datastore();
+import { Firestore } from "@google-cloud/firestore";
+const fireStore = new Firestore();
 // Datastore API
 // Cloud Datastore Role to Service Account
 export async function getEntity(
   kind: string,
   id: string
 ): Promise<any | undefined> {
-  const datastore = new Datastore();
-  const dataKey = datastore.key([kind, id]);
-  const [entity] = await datastore.get(dataKey);
-  return entity;
+  const document = fireStore.doc(`${kind}/${id}`);
+  const documentData = await document.get();
+  return documentData.data();
 }
 
 export async function setEntity(kind: string, id: string, entity: Object) {
-  const dataKey = datastore.key([kind, id]);
-  const newEntity = {
-    key: dataKey,
-    data: entity,
-  };
-  const [result] = await datastore.save(newEntity);
-  return result;
+  const document = fireStore.doc(`${kind}/${id}`);
+  await document.set(entity);
 }
 
 export async function checkKeyAvailability(kind: string, id: string) {

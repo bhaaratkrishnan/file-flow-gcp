@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { setDarkTheme, setLightTheme } from "~/composables/theme";
+
 const lightModeIcon = "material-symbols:light-mode-outline";
 const darkModedIcon = "ph:moon-stars";
 const currentThemeMode = ref("light");
@@ -8,16 +10,20 @@ const currentThemeModeIcon = computed(() => {
   }
   return lightModeIcon;
 });
-function changeMode () {
-  if(currentThemeMode.value === "light") {
-    currentThemeMode.value = "dark"
-    document.documentElement.classList.add("dark");
-  }else{
+
+function changeMode() {
+  if (currentThemeMode.value === "light") {
+    currentThemeMode.value = "dark";
+    setDarkTheme();
+  } else {
     currentThemeMode.value = "light";
-    document.documentElement.classList.remove("dark");
+    setLightTheme();
   }
-  
 }
+
+onMounted(() => {
+  currentThemeMode.value = localStorage.getItem("themeMode") ?? "light";
+});
 </script>
 <template>
   <div class="flex flex-row my-4 mx-4 lg:mx-16 justify-between items-center">
@@ -27,9 +33,11 @@ function changeMode () {
       FileFlow
     </div>
     <div class="flex flex-row space-x-8">
-      <button class="text-zinc-950 dark:text-zinc-50 font-mono font-medium">
-        <Icon name="mdi:github" class="text-xl dark:text-zinc-50" /> Github
-      </button>
+      <a target="_blank" href="https://github.com/bhaaratkrishnan/file-flow-gcp">
+        <button class="text-zinc-950 dark:text-zinc-50 font-mono font-medium">
+          <Icon name="mdi:github" class="text-xl dark:text-zinc-50" /> Github
+        </button>
+      </a>
       <button @click="changeMode">
         <Icon :name="currentThemeModeIcon" class="text-xl dark:text-zinc-50" />
       </button>

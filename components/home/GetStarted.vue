@@ -23,8 +23,8 @@ const currentHost = window.location.host;
 
 <template>
   <div class="flex flex-col py-12 justify-center items-center" id="get-started">
-    <div class="text-center font-bold text-4xl text-zinc-950">Get Started</div>
-    <div class="leading-8 my-8 mx-4 lg:mx-0">
+    <div class="text-center font-bold text-4xl text-zinc-950 dark:text-zinc-50">Get Started</div>
+    <div class="leading-8 my-8 mx-4 lg:mx-0 dark:text-zinc-50">
       Simply upload your files here, and let FileFlow effortlessly generate
       shareable links for your convenience.
     </div>
@@ -42,28 +42,28 @@ const currentHost = window.location.host;
       />
       <!-- stats  -->
       <div
-        class="flex flex-col text-zinc-950 items-start border-2 p-8 m-2 lg:m-0 rounded-lg lg:w-1/3 shadow-lg hover:shadow-md transition"
+        class="flex flex-col text-zinc-950 dark:bg-slate-900 dark:text-zinc-50 items-start border-2 dark:border-slate-800 dark:shadow-zinc-800 p-8 m-2 lg:m-0 rounded-lg lg:w-1/3 shadow-lg hover:shadow-md transition"
       >
         <div class="text-2xl font-bold mb-4">Today's Stats</div>
         <LoadingSpinner v-if="pending" />
-        <div v-else>
-          <div class="text-blue-600 font-medium my-2">
+        <div v-else >
+          <div class="text-blue-600 dark:text-blue-300 font-medium my-2">
             Client IP Address :
-            <span class="font-mono text-green-500">{{ data?.ip }}</span>
+            <span class="font-mono text-green-500 dark:text-green-400">{{ data?.ip }}</span>
           </div>
-          <div class="text-blue-600 font-medium my-2">
+          <div class="text-blue-600 dark:text-blue-300 font-medium my-2">
             File Usage :
-            <span class="font-mono text-green-500"
+            <span class="font-mono text-green-500 dark:text-green-400"
               >{{ data?.count }} / 5 Flows</span
             >
           </div>
-          <div class="my-2 text-zinc-950 font-bold text-2xl">File Flows</div>
+          <div class="my-4 text-zinc-950 font-bold text-2xl dark:text-zinc-50">File Flows</div>
           <div class="" v-if="data?.fileFlows.length === 0">
             Begin uploading to fill the void.
           </div>
           <div class="grid grid-cols-3 gap-y-4 gap-x-8" v-else>
             <button
-              class="shadow-lg font-bold border-2 px-4 py-2 rounded-lg hover:bg-zinc-200 font-mono"
+              class="shadow-lg dark:shadow-zinc-800 font-bold border-2 px-4 py-2 rounded-lg hover:bg-zinc-200 dark:hover:bg-gray-700 dark:border-gray-700 font-mono"
               v-for="link in data?.fileFlows"
               @click="
                 () => {
@@ -85,10 +85,10 @@ const currentHost = window.location.host;
       <div
         key="notification"
         v-if="notification"
-        class="relative bottom-0 right-0 p-4 m-4 h-fit w-fit bg-white shadow-md rounded-md"
+        class="relative bottom-0 right-0 p-4 m-6 h-fit w-fit bg-white dark:bg-gray-800  shadow-md rounded-md"
       >
         <!-- Your notification content goes here -->
-        <p class="text-black">{{ notificationText }}</p>
+        <p class="text-black dark:text-zinc-50">{{ notificationText }}</p>
       </div>
     </TransitionExpand>
   </div>
