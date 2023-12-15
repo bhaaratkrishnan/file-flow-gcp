@@ -4,7 +4,7 @@ const data = ref<String | undefined>(undefined);
 const emits = defineEmits(["submitted", "notification"]);
 const fileName = ref("");
 function handleFileChange() {
-  const files = (document.getElementById("upload") as HTMLInputElement).files;
+  const files = (document.getElementById("upload-file") as HTMLInputElement).files;
   if (files === null) {
     return;
   }
@@ -13,7 +13,7 @@ function handleFileChange() {
 async function handleClick() {
   loading.value = true;
   const formData = new FormData();
-  const files = (document.getElementById("upload") as HTMLInputElement).files;
+  const files = (document.getElementById("upload-file") as HTMLInputElement).files;
   if (files === null) {
     return;
   }
@@ -47,8 +47,8 @@ async function handleClick() {
         <input
           type="file"
           class="absolute opacity-0 cursor-pointer inset-0"
-          name="upload"
-          id="upload"
+          name="upload-file"
+          id="upload-file"
           required
           @change="handleFileChange"
         />
@@ -69,7 +69,7 @@ async function handleClick() {
       <button
         class="gradient-accent text-white dark:shadow-zinc-600 shadow-lg  font-bold px-3 py-2 text-xl rounded-lg"
       >
-        Submit
+        Upload
       </button>
     </form>
     <button

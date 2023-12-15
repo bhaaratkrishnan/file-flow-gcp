@@ -23,7 +23,9 @@ const currentHost = window.location.host;
 
 <template>
   <div class="flex flex-col py-12 justify-center items-center" id="get-started">
-    <div class="text-center font-bold text-4xl text-zinc-950 dark:text-zinc-50">Get Started</div>
+    <div class="text-center font-bold text-4xl text-zinc-950 dark:text-zinc-50">
+      Get Started
+    </div>
     <div class="leading-8 my-8 mx-4 lg:mx-0 dark:text-zinc-50">
       Simply upload your files here, and let FileFlow effortlessly generate
       shareable links for your convenience.
@@ -46,10 +48,12 @@ const currentHost = window.location.host;
       >
         <div class="text-2xl font-bold mb-4">Today's Stats</div>
         <LoadingSpinner v-if="pending" />
-        <div v-else >
+        <div v-else>
           <div class="text-blue-600 dark:text-blue-300 font-medium my-2">
             Client IP Address :
-            <span class="font-mono text-green-500 dark:text-green-400">{{ data?.ip }}</span>
+            <span class="font-mono text-green-500 dark:text-green-400">{{
+              data?.ip
+            }}</span>
           </div>
           <div class="text-blue-600 dark:text-blue-300 font-medium my-2">
             File Usage :
@@ -57,7 +61,9 @@ const currentHost = window.location.host;
               >{{ data?.count }} / 5 Flows</span
             >
           </div>
-          <div class="my-4 text-zinc-950 font-bold text-2xl dark:text-zinc-50">File Flows</div>
+          <div class="my-4 text-zinc-950 font-bold text-2xl dark:text-zinc-50">
+            File Flows
+          </div>
           <div class="" v-if="data?.fileFlows.length === 0">
             Begin uploading to fill the void.
           </div>
@@ -67,9 +73,7 @@ const currentHost = window.location.host;
               v-for="link in data?.fileFlows"
               @click="
                 () => {
-                  copyToClipboard(
-                    `${currentHost}/api/upload/${link}`
-                  );
+                  copyToClipboard(`${currentHost}/api/upload/${link}`);
                   animateNotification();
                 }
               "
@@ -82,14 +86,7 @@ const currentHost = window.location.host;
       <!-- modal  -->
     </div>
     <TransitionExpand>
-      <div
-        key="notification"
-        v-if="notification"
-        class="relative bottom-0 right-0 p-4 m-6 h-fit w-fit bg-white dark:bg-gray-800  shadow-md rounded-md"
-      >
-        <!-- Your notification content goes here -->
-        <p class="text-black dark:text-zinc-50">{{ notificationText }}</p>
-      </div>
+      <Notification v-if="notification" :text="notificationText" />
     </TransitionExpand>
   </div>
 </template>

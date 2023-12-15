@@ -9,6 +9,5 @@
 }
 
 .gradient-accent {
-  @apply bg-gradient-to-tl transition from-blue-500 via-red-500 to-yellow-500 hover:from-blue-600 hover:via-red-600 hover:to-yellow-600;
+  @apply bg-gradient-to-tl from-blue-500 via-red-500 to-yellow-500 transition hover:from-blue-600 hover:via-red-600 hover:to-yellow-600 disabled:cursor-not-allowed;
 }
-

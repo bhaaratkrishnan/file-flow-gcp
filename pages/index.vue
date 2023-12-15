@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const data = ref("");
 useHead({
-  title:"FileFlow"
+  title:"FileFlow",
+})
+definePageMeta({
+  layout:"home-layout"
 })
 </script>
 <template>

@@ -26,15 +26,36 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="flex flex-row my-4 mx-4 lg:mx-16 justify-between items-center">
-    <div
-      class="gradient-primary bg-clip-text text-transparent font-bold text-xl lg:px-8"
-    >
-      FileFlow
+  <div class="mx-4 my-4 flex flex-row items-center justify-between lg:mx-16">
+    <NuxtLink to="/">
+      <div
+        class="gradient-primary bg-clip-text text-xl font-bold text-transparent lg:px-8"
+      >
+        FileFlow
+      </div>
+    </NuxtLink>
+    <div class="flex flex-row items-center space-x-8">
+      <NuxtLink to="/peer">
+        <button
+          class="rounded-lg p-2 text-xl font-bold text-zinc-950 hover:text-zinc-600 dark:text-zinc-50"
+        >
+          Peer Portal
+        </button>
+      </NuxtLink>
+      <NuxtLink to="/">
+        <button
+          class="rounded-lg p-2 text-xl font-bold text-zinc-950 hover:text-zinc-600 dark:text-zinc-50"
+        >
+          AI Studio
+        </button>
+      </NuxtLink>
     </div>
     <div class="flex flex-row space-x-8">
-      <a target="_blank" href="https://github.com/bhaaratkrishnan/file-flow-gcp">
-        <button class="text-zinc-950 dark:text-zinc-50 font-mono font-medium">
+      <a
+        target="_blank"
+        href="https://github.com/bhaaratkrishnan/file-flow-gcp"
+      >
+        <button class="font-mono font-medium text-zinc-950 dark:text-zinc-50">
           <Icon name="mdi:github" class="text-xl dark:text-zinc-50" /> Github
         </button>
       </a>
@@ -43,4 +64,5 @@ onMounted(() => {
       </button>
     </div>
   </div>
+  <hr class="border-zinc-200 mx-4" />
 </template>

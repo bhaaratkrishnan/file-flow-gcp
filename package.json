@@ -7,16 +7,20 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "peer": "npx peerjs --port 3100 --path /peer"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/tailwindcss": "^6.9.4",
+    "@types/file-saver": "^2.0.7",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.0",
     "nuxt-icon": "^0.6.3",
     "postcss": "^8.4.31",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.3.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
@@ -26,7 +30,14 @@
     "@google-cloud/firestore": "^7.1.0",
     "@google-cloud/storage": "^7.5.0",
     "@morev/vue-transitions": "^2.3.6",
+    "@pinia/nuxt": "^0.5.1",
+    "@types/uuid": "^9.0.7",
+    "file-saver": "^2.0.5",
+    "peer": "^1.0.1",
+    "peerjs": "^1.5.1",
+    "pinia": "^2.1.7",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "uuid": "^9.0.1"
   }
 }
