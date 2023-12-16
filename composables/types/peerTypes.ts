@@ -31,7 +31,7 @@ export enum peerDataMessageType  {
 }
 
 export type notificationType = {
-    id?:number;
+    id?:string;
     type:notificationMessageType;
     data:string;
 }
@@ -39,4 +39,5 @@ export enum notificationMessageType {
     warning,
     error,
     success,
+    info
 }

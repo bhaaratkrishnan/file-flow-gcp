@@ -3,8 +3,8 @@ import {
   usePeerStore,
   usePeerConnectionsStore,
   useNotificationStore,
-} from "~/composables/Peer/peerStore";
-import { notificationMessageType } from "~/composables/Peer/peerTypes";
+} from "~/composables/stores/peerStore";
+import { notificationMessageType } from "~/composables/types/peerTypes";
 const currentPeerId = ref("");
 const clientId = ref("");
 const fileSelected = ref<File>();
@@ -20,39 +20,82 @@ function handleFileChange(event: Event) {
     console.log(fileSelected.value.name);
   }
 }
+
+function handleConnectToPeer() {
+  if (currentPeerId.value === "") {
+    useNotificationStore().addNotification({
+      type: notificationMessageType.warning,
+      data: "Please Enter a Peer ID",
+    });
+    return;
+  }
+  if (!peerStore.peerConnectionStatus) {
+    peerStore.connectPeer({ id: currentPeerId.value });
+  }
+}
+
+function handleAddClient() {
+  if (clientId.value === "") {
+    useNotificationStore().addNotification({
+      type: notificationMessageType.warning,
+      data: "Please Enter a Client ID",
+    });
+    return;
+  }
+  peerStore.connectToAnotherPeer({ id: clientId.value });
+}
 </script>
 
 <template>
   <div class="mx-16 flex flex-col items-center justify-center py-12">
-    <div class="my-6 text-4xl font-bold text-zinc-950">Peer Portal</div>
+    <div
+      class="gradient-primary my-6 bg-clip-text text-4xl font-bold text-transparent"
+    >
+      Peer Portal
+    </div>
     <div class="flex flex-col items-center justify-center space-y-8">
       <div class="flex flex-row items-center space-x-4">
         <div
-          class="h-4 w-4 animate-pulse rounded-full bg-red-600"
+          class="h-4 w-4 animate-bounce rounded-full bg-red-600"
           v-if="!peerStore.peerConnectionStatus"
         ></div>
         <div
-          class="h-4 w-4 animate-pulse rounded-full bg-green-600"
+          class="h-4 w-4 animate-bounce rounded-full bg-green-600"
           v-else
         ></div>
         <input
+          :readonly="peerStore.peerConnectionStatus"
           type="text"
+          autofocus
           placeholder="Enter Peer ID"
           class="rounded-lg border-2 p-2 shadow-lg"
           name="peer-client-name"
           v-model="currentPeerId"
+          @keydown.enter="handleConnectToPeer"
         />
+        <div
+          class="rounded-lg p-2 shadow-lg transition ease-in-out hover:shadow"
+          :hidden="!peerStore.peerConnectionStatus"
+          @click="
+            () => {
+              copyToClipboard(currentPeerId);
+              useNotificationStore().addNotification({
+                type: notificationMessageType.success,
+                data: 'Peer ID Copied to Clipboard',
+              });
+            }
+          "
+        >
+          <Icon
+            name="material-symbols:content-copy"
+            class="text-2xl text-zinc-500"
+          />
+        </div>
       </div>
       <button
         :disabled="peerStore.peerConnectionStatus"
         class="gradient-accent rounded-lg px-3 py-2 text-xl font-bold text-white shadow-lg dark:shadow-zinc-600"
-        @click="
-          () => {
-            if (!peerStore.peerConnectionStatus) {
-              peerStore.connectPeer({ id: currentPeerId });
-            }
-          }
-        "
+        @click="handleConnectToPeer"
       >
         Start Peer Server
       </button>
@@ -68,13 +111,15 @@ function handleFileChange(event: Event) {
         </div>
         <div class="flex flex-row space-x-8">
           <input
+            placeholder="Enter Client ID"
             type="text"
             class="rounded-lg border-2 p-2 shadow-lg"
             v-model="clientId"
+            @keydown.enter="handleAddClient"
           />
           <button
             class="rounded-lg bg-blue-500 p-2 text-xl font-bold text-white hover:bg-blue-800"
-            @click="() => peerStore.connectToAnotherPeer({ id: clientId })"
+            @click="handleAddClient"
           >
             Add Client
           </button>

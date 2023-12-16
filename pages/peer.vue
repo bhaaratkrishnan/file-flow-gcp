@@ -7,6 +7,7 @@
         <ClientOnly>
             <PeerPortal />
         </ClientOnly>
-
+        <Footer />
     </div>
+
 </template>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useNotificationStore } from "~/composables/Peer/peerStore";
-import { notificationMessageType } from "~/composables/Peer/peerTypes";
+import { useNotificationStore } from "~/composables/stores/peerStore";
+import { notificationMessageType } from "~/composables/types/peerTypes";
 </script>
 
 <template>
   <div
-    class="fixed bottom-0 right-0 flex basis-1/2 flex-col items-end justify-end p-8"
+    class="fixed right-0 top-6 flex basis-1/2 flex-col items-end justify-end p-8"
   >
     <div
-      class="my-2 flex flex-row space-x-4 rounded-lg p-3 shadow-lg"
+      class="my-2 flex flex-row space-x-4 rounded-lg bg-white p-3 shadow-lg"
       v-for="notification in useNotificationStore().notifications"
       :key="notification.id"
     >
@@ -24,12 +24,18 @@ import { notificationMessageType } from "~/composables/Peer/peerTypes";
           v-else-if="notification.type === notificationMessageType.error"
         />
         <Icon
+          name="material-symbols-light:info"
+          class="text-blue-600"
+          v-else-if="notification.type === notificationMessageType.info"
+        />
+
+        <Icon
           v-else
           name="clarity:success-standard-solid"
-          class="text-blue-600"
+          class="text-green-600"
         />
       </div>
-      <div>
+      <div class="text-lg">
         {{ notification.data }}
       </div>
     </div>

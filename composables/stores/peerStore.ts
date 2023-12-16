@@ -7,19 +7,43 @@ import {
   type peerDataType,
   type notificationType,
   notificationMessageType,
-} from "./peerTypes";
+} from "~/composables/types/peerTypes";
 import { saveAs } from "file-saver";
 import { v4 as uuid4 } from "uuid";
 
+const runtimeConfig = useRuntimeConfig();
 const peerConfig: PeerOptions = {
   host: "peer-server-otcrggkcra-el.a.run.app",
   port: 443,
   path: "/",
+  debug: 3,
+  config: {
+    iceServers: [
+      {
+        // urls: runtimeConfig.public.stunUrl,
+        url: "stun:34.16.23.24:3478",
+        urls: "stun:34.16.23.24:3478",
+      },
+      {
+        url: "turn:34.16.23.24:3478",
+        urls: "turn:34.16.23.24:3478",
+        username: "guest",
+        credential: "somepassword",
+      },
+      // {
+      //   url: runtimeConfig.public.turnUrl,
+      //   username: runtimeConfig.public.turnUsername,
+      //   credential: runtimeConfig.public.turnPassword,
+      // },
+    ],
+  },
 };
+
 export const usePeerStore = defineStore("peer", () => {
   const peer = ref<Peer>();
   const peerConnectionStatus = ref(false);
   const connectPeer = ({ id }: { id: string }) => {
+    console.log(peerConfig);
     peer.value = new Peer(id, peerConfig);
     peer.value.on("open", (peerId) => {
       console.log("Peer Connected with ID : " + peerId);
@@ -30,6 +54,7 @@ export const usePeerStore = defineStore("peer", () => {
       peerConnectionStatus.value = true;
     });
     peer.value.on("connection", (conn) => {
+      console.log("Peer Connected with ID : " + conn.peer);
       usePeerConnectionsStore().addPeerConnection({ id: conn.peer, conn });
       useNotificationStore().addNotification({
         type: notificationMessageType.success,
@@ -71,15 +96,24 @@ export const usePeerStore = defineStore("peer", () => {
       usePeerConnectionsStore().peerConnections.filter((e) => e.id === id)
         .length > 0
     ) {
+      console.log("Error here");
+
       useNotificationStore().addNotification({
         type: notificationMessageType.error,
         data: `Already Connected to ${id}`,
       });
       return;
     }
-    const conn = peer.value?.connect(id);
+
+    const conn = peer.value?.connect(id, { reliable: true });
+    useNotificationStore().addNotification({
+      type: notificationMessageType.info,
+      data: `Connecting to ${id}`,
+    });
 
     if (conn === undefined) {
+      console.log("Conn is undefined");
+
       useNotificationStore().addNotification({
         type: notificationMessageType.error,
         data: "Peer not available",
@@ -87,6 +121,8 @@ export const usePeerStore = defineStore("peer", () => {
       return;
     }
     conn.on("open", () => {
+      console.log("Conn open in peer store function");
+
       useNotificationStore().addNotification({
         type: notificationMessageType.success,
         data: `Connected to ${id}`,
@@ -136,6 +172,8 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
     id: string;
     conn: DataConnection;
   }) {
+    console.log("Peer Connection Function");
+
     peerConnections.value.push({
       id,
       conn,
@@ -172,6 +210,10 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
           }
         });
       }
+    });
+    conn.on("error", (err) => {
+      console.log(err.type);
+      console.log(err.message);
     });
     conn.on("close", () => {
       peerConnections.value = peerConnections.value.filter((e) => {
@@ -265,7 +307,7 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
 export const useNotificationStore = defineStore("notification", () => {
   const notifications = ref<notificationType[]>([]);
   const addNotification = ({ type, data }: notificationType) => {
-    const id = notifications.value.length;
+    const id = uuid4();
     notifications.value = [{ id, type, data }, ...notifications.value];
     setTimeout(() => {
       notifications.value = notifications.value.filter((e) => {
