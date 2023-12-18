@@ -63,6 +63,7 @@ export const usePeerStore = defineStore("peer", () => {
     });
     peer.value.on("disconnected", () => {
       peerConnectionStatus.value = false;
+      usePeerConnectionsStore().$reset();
     });
 
     peer.value.on("error", (err) => {
@@ -293,7 +294,14 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
       filesShared.value.reverse();
     }
   }
-
+  function $reset() {
+    peerConnections.value.forEach((e) => {
+      e.conn?.close();
+    });
+    peerConnections.value = [];
+    filesShared.value = [];
+    currentSelectedPeer.value = "";
+  }
   return {
     peerConnections,
     addPeerConnection,
@@ -301,6 +309,7 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
     sendFileToPeer,
     currentSelectedPeer,
     filesShared,
+    $reset,
   };
 });
 

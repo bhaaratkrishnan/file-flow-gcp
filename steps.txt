@@ -1,5 +1,7 @@
 Create a e2-micro with 30GB hard disk space, https and http enabled,
 
+Turn Server Link : https://www.red5.net/docs/installation/turn-stun/turnstun/
+Turn Server Testing : https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
 Turn server config:
 # /etc/turnserver.conf
 # STUN server port is 3478 for UDP and TCP, and 5349 for TLS.
