@@ -7,6 +7,9 @@ export default defineNuxtConfig({
       turnUrl: "",
       turnUsername: "",
       turnPassword: "",
+      projectId: "",
+      projectLocation:"",
+      storageBucketName: "",
     },
   },
 

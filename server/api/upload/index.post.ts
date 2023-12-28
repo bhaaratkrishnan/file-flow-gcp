@@ -1,5 +1,5 @@
-import { Storage } from "@google-cloud/storage";
 import { checkKeyAvailability, setEntity } from "~/server/utils/datastore";
+import { getSignedUrl } from "~/server/utils/google_cloud_storage";
 import { generateShortUrlId } from "~/server/utils/id_generator";
 import { findNextNoon } from "~/server/utils/timestamp";
 
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   try {
     const formData = await readFormData(event);
     const clientIp = getHeader(event, "X-Forwarded-For") ?? "Undefined";
-    const currentHost = getHeader(event,"host")
+    const currentHost = getHeader(event, "host");
     const clientData = await $fetch("/api/user", {
       method: "get",
       headers: {
@@ -29,33 +29,30 @@ export default defineEventHandler(async (event) => {
       return;
     }
     const file = formData.get("upload") as File;
+    const fileName = `${clientData.ip}/${file.name}`;
     const fileBuffer = Buffer.from(await file.arrayBuffer());
-    const bucketName = "test-bucket-code-vipa";
-    const storage = new Storage();
-    const bucket = storage.bucket(bucketName);
-    const fileUpload = bucket.file(`${clientData.ip}/${file.name}`);
-    await fileUpload.save(fileBuffer);
-    console.log("File Uploaded");
-
-    const [url] = await fileUpload.getSignedUrl({
-      expires: Date.now() + 60 * 60 * 1000,
-      action: "read",
-      version: "v4",
+    const fileUploadResponse = await uploadFile({
+      fileName,
+      fileBuffer,
     });
+    if (!fileUploadResponse) {
+      throw createError({
+        statusCode: 500,
+        message: "Error Occured While Uploading File",
+      });
+    }
+    const signedUrl = await getSignedUrl(fileName);
     console.log("URL Signed");
-
     let shortUrlId = generateShortUrlId();
-    console.log(shortUrlId);
-
     while (!(await checkKeyAvailability("urls", shortUrlId))) {
       shortUrlId = generateShortUrlId();
     }
-    console.log("Loop over");
     await setEntity("urls", shortUrlId, {
-      fileUrl: url,
+      fileUrl: signedUrl,
+      fileName: fileName,
+      fileType: file.type,
       timeStamp: new Date(Date.now() + 60 * 60 * 1000),
     });
-    console.log(clientData.fileFlows);
     clientData.fileFlows.push(shortUrlId);
     await setEntity("user", clientIp, {
       count: clientData.count + 1,
@@ -68,7 +65,7 @@ export default defineEventHandler(async (event) => {
     };
   } catch (err) {
     console.log(err);
-    
+
     return { code: 400, detail: "Error Occured Try Again After Sometime" };
   }
 });

@@ -1,3 +1,11 @@
 export type shortUrlResponse = {
-    fileUrl:string
-}
+  fileUrl: string;
+};
+
+export type urlsSchemaFs = {
+  timeStamp: { _seconds: number; _nanoseconds: number };
+  fileUrl: string;
+  fileGsUrl: string;
+  fileName: string;
+  fileType: string;
+};
