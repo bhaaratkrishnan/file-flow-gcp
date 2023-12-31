@@ -42,7 +42,7 @@ onMounted(() => {
           Peer Portal
         </button>
       </NuxtLink>
-      <NuxtLink to="/">
+      <NuxtLink to="/ai-studio">
         <button
           class="rounded-lg p-2 text-xl font-bold text-zinc-950 hover:text-zinc-600 dark:text-zinc-50"
         >

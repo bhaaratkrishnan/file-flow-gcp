@@ -1,4 +1,4 @@
-import { aiResponseToText } from "~/server/utils/vertex_ai";
+import { aiResponseToText, geminiVisionPrompt } from "~/server/utils/vertex_ai";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{
@@ -7,11 +7,18 @@ export default defineEventHandler(async (event) => {
     prompt: string;
   }>(event);
 
-  const promptResponse = await imagePrompt({
-    imageType: body.imageType,
-    imageData: body.imageData,
-    prompt: body.prompt,
+  const readable = new ReadableStream({
+    async start(controller) {
+      const promptResponse = await geminiVisionPrompt({
+        imageType: body.imageType,
+        imageData: body.imageData,
+        prompt: body.prompt,
+      });
+      for await (const chunk of promptResponse) {
+        controller.enqueue(chunk.candidates[0].content.parts[0].text);
+      }
+      controller.close();
+    },
   });
-  let response = aiResponseToText(promptResponse);
-  return response;
+  return sendStream(event, readable);
 });

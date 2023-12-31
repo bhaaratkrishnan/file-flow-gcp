@@ -20,17 +20,39 @@ export async function geminiPrompt(prompt: string) {
   return response;
 }
 
-async function geminiVisionPrompt(
-  prompt: string,
-  imageType: string,
-  imageData: string,
-) {
+export async function geminiStreamPrompt(prompt: string) {
+  const model = "gemini-pro";
+  const generativeModel = vertex_ai.preview.getGenerativeModel({
+    model,
+    generation_config: { max_output_tokens: 2048, temperature: 0.9, top_p: 1 },
+  });
+  const response = await generativeModel.generateContentStream({
+    contents: [{ role: "user", parts: [{ text: prompt }] }],
+  });
+  return response.stream;
+}
+
+export async function geminiVisionPrompt({
+  prompt,
+  imageType,
+  imageData,
+}: {
+  prompt: string;
+  imageType: string;
+  imageData: string;
+}) {
+  console.log("Prompt Entered");
+
   const model = "gemini-pro-vision";
   const generativeModel = vertex_ai.preview.getGenerativeModel({
     model,
     generation_config: { max_output_tokens: 2048, temperature: 0.9, top_p: 1 },
   });
-  const response = await generativeModel.generateContent({
+  console.log("Sending");
+  imageType = "image/" + imageType;
+  console.log(imageType);
+
+  const response = await generativeModel.generateContentStream({
     contents: [
       {
         role: "user",
@@ -46,38 +68,12 @@ async function geminiVisionPrompt(
       },
     ],
   });
-  return response;
+  console.log("Returning");
+  return response.stream;
 }
 
 export async function summarizeText(text: String) {
   return await geminiPrompt(`Summarize this text : ${text}`);
-}
-
-export async function makeThisBetter(text: String) {
-  return await geminiPrompt(`Make this better : ${text}`);
-}
-
-export async function extractTextFromImage(
-  imageType: string,
-  imageData: string,
-) {
-  return await geminiVisionPrompt(
-    "Extract text from this image",
-    imageType,
-    imageData,
-  );
-}
-
-export async function imagePrompt({
-  prompt,
-  imageType,
-  imageData,
-}: {
-  prompt: string;
-  imageType: string;
-  imageData: string;
-}) {
-  return await geminiVisionPrompt(prompt, imageType, imageData);
 }
 
 export function aiResponseToText(response: GenerateContentResult): string {

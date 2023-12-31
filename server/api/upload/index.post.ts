@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
     }
     const file = formData.get("upload") as File;
     const fileName = `${clientData.ip}/${file.name}`;
+    const fileType = file.name.split(".").pop();
     const fileBuffer = Buffer.from(await file.arrayBuffer());
     const fileUploadResponse = await uploadFile({
       fileName,
@@ -50,7 +51,7 @@ export default defineEventHandler(async (event) => {
     await setEntity("urls", shortUrlId, {
       fileUrl: signedUrl,
       fileName: fileName,
-      fileType: file.type,
+      fileType: fileType,
       timeStamp: new Date(Date.now() + 60 * 60 * 1000),
     });
     clientData.fileFlows.push(shortUrlId);

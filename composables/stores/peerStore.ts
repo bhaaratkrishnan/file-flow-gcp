@@ -11,7 +11,6 @@ import {
 import { saveAs } from "file-saver";
 import { v4 as uuid4 } from "uuid";
 
-const runtimeConfig = useRuntimeConfig();
 const peerConfig: PeerOptions = {
   host: "peer-server-otcrggkcra-el.a.run.app",
   port: 443,
@@ -325,10 +324,12 @@ export const useNotificationStore = defineStore("notification", () => {
         }
         return true;
       });
-    }, 2000);
+    }, 3500);
   };
   return { notifications, addNotification };
 });
+
+
 async function toBase64(file: File): Promise<string | ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

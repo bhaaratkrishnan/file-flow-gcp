@@ -34,6 +34,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@types/uuid": "^9.0.7",
     "file-saver": "^2.0.5",
+    "md-block": "^0.0.1",
     "peer": "^1.0.1",
     "peerjs": "^1.5.1",
     "pinia": "^2.1.7",

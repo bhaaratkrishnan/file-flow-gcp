@@ -1,10 +1,10 @@
 <script setup lang="ts">
 useHead({
-  title:"FileFlow",
-})
+  title: "FileFlow",
+});
 definePageMeta({
-  layout:"home-layout"
-})
+  layout: "home-layout",
+});
 </script>
 <template>
   <!-- <h1>Share Safe</h1>
@@ -13,6 +13,7 @@ definePageMeta({
   <HomeHeroSection />
   <ClientOnly>
     <HomeGetStarted />
+    <Notification />
   </ClientOnly>
   <HomeWhatIsFileFlow />
 </template>

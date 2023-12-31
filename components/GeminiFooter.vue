@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="flex flex-col items-center bg-gradient-to-b from-white via-red-200 to-blue-200 px-12 py-32 dark:from-slate-900 dark:to-blue-950 lg:px-24"
+    class="flex flex-col items-center bg-gradient-to-b from-white via-[#E9D5CA] to-[#B3C2FB] px-12 py-32 dark:from-slate-900 dark:to-blue-950 lg:px-24"
   >
     <div
       class="rounded-lg border-[3px] border-white bg-white bg-opacity-30 p-4 shadow-lg transition hover:-translate-y-4 dark:border-zinc-800 dark:bg-gray-800"
