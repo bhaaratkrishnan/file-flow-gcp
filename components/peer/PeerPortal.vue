@@ -56,7 +56,7 @@ function handleAddClient() {
     <div
       class="my-8 flex flex-col items-center justify-center space-y-8 lg:my-0"
     >
-      <div class="flex flex-row items-center space-x-4">
+      <div class="flex flex-row items-center justify-center space-x-4">
         <div
           class="h-4 w-4 animate-bounce rounded-full bg-red-600 dark:bg-red-500"
           v-if="!peerStore.peerConnectionStatus"
