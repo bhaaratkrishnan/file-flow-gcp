@@ -9,3 +9,12 @@ export type urlsSchemaFs = {
   fileName: string;
   fileType: string;
 };
+
+export type userSchemaFs = {
+  count: number;
+  fileFlows: string[];
+  timeStamp: { _seconds: number; _nanoseconds: number };
+};
+
+export type userSchemaWithIdFs = { id: string } & userSchemaFs;
+

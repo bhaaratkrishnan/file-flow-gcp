@@ -52,3 +52,7 @@ cipher-list="ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES
 # Specify the process user and group
 proc-user=turnserver
 proc-group=turnserver
+
+
+# Job Scheduler for clearing fileflows
+Run every day midnight

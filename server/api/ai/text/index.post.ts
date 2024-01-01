@@ -4,7 +4,12 @@ export default defineEventHandler(async (event) => {
     async start(controller) {
       const promptResponse = await geminiStreamPrompt(body);
       for await (const chunk of promptResponse) {
-        controller.enqueue(chunk.candidates[0].content.parts[0].text);
+        if (
+          chunk.candidates.length > 0 &&
+          chunk.candidates[0].content.parts.length > 0
+        ) {
+          controller.enqueue(chunk.candidates[0].content.parts[0].text);
+        }
       }
       controller.close();
     },

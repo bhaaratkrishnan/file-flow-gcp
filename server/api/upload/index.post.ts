@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
       fileUrl: signedUrl,
       fileName: fileName,
       fileType: fileType,
-      timeStamp: new Date(Date.now() + 60 * 60 * 1000),
+      timeStamp: findNextNoon(),
     });
     clientData.fileFlows.push(shortUrlId);
     await setEntity("user", clientIp, {
