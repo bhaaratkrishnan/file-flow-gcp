@@ -34,7 +34,7 @@ onMounted(() => {
         FileFlow
       </div>
     </NuxtLink>
-    <div class="flex flex-row items-center space-x-8">
+    <div class="hidden flex-row items-center space-x-8 lg:flex">
       <NuxtLink to="/peer">
         <button
           class="rounded-lg p-2 text-xl font-bold text-zinc-950 hover:text-zinc-600 dark:text-zinc-50"
@@ -64,5 +64,5 @@ onMounted(() => {
       </button>
     </div>
   </div>
-  <hr class="border-zinc-200 mx-4" />
+  <hr class="mx-4 border-zinc-200" />
 </template>

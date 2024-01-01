@@ -47,13 +47,15 @@ function handleAddClient() {
 </script>
 
 <template>
-  <div class="mx-16 flex flex-col items-center justify-center py-12">
+  <div class="mx-6 flex flex-col items-center justify-center lg:mx-16">
     <div
       class="gradient-primary my-6 bg-clip-text text-4xl font-bold text-transparent"
     >
       Peer Portal
     </div>
-    <div class="flex flex-col items-center justify-center space-y-8">
+    <div
+      class="my-8 flex flex-col items-center justify-center space-y-8 lg:my-0"
+    >
       <div class="flex flex-row items-center space-x-4">
         <div
           class="h-4 w-4 animate-bounce rounded-full bg-red-600 dark:bg-red-500"
@@ -101,15 +103,19 @@ function handleAddClient() {
       </button>
     </div>
     <!-- row flex  -->
-    <div class="flex w-full flex-row justify-between space-x-24 p-8">
+    <div
+      class="flex min-w-full flex-col space-y-12 py-4 lg:flex-row lg:justify-between lg:space-x-24 lg:space-y-0 lg:p-8"
+    >
       <!-- connected clients tab  -->
       <div
-        class="flex basis-1/2 flex-col space-y-8 rounded-lg border-2 p-8 shadow-lg dark:border-gray-800 dark:shadow-zinc-800"
+        class="flex w-full flex-col space-y-6 rounded-lg border-2 px-5 py-6 dark:border-gray-800 dark:shadow-zinc-800 lg:basis-1/2 lg:space-y-8 lg:p-8 lg:shadow-lg"
       >
-        <div class="mb-2 text-2xl font-bold text-zinc-950 dark:text-zinc-50">
+        <div class="text-2xl font-bold text-zinc-950 dark:text-zinc-50 lg:mb-2">
           Connected Clients
         </div>
-        <div class="flex flex-row space-x-8">
+        <div
+          class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0"
+        >
           <input
             placeholder="Enter Client ID"
             type="text"
@@ -118,7 +124,7 @@ function handleAddClient() {
             @keydown.enter="handleAddClient"
           />
           <button
-            class="rounded-lg bg-blue-500 p-2 text-xl font-bold text-white hover:bg-blue-800 dark:shadow-zinc-800"
+            class="rounded-lg bg-blue-500 p-1 text-lg font-bold text-white hover:bg-blue-800 dark:shadow-zinc-800 lg:p-2 lg:text-xl"
             @click="handleAddClient"
           >
             Add Client
@@ -130,7 +136,7 @@ function handleAddClient() {
           @click="
             () => (usePeerConnectionsStore().currentSelectedPeer = peer.id)
           "
-          :class="`flex w-2/3 flex-row justify-between rounded-lg border-blue-600 px-4 py-3 text-start font-mono font-bold text-blue-600 shadow-lg hover:shadow-md dark:shadow-zinc-800 ${
+          :class="`flex flex-row justify-between rounded-lg border-blue-600 px-4 py-3 text-start font-mono font-bold text-blue-600 shadow-lg hover:shadow-md dark:shadow-zinc-800 lg:w-2/3 ${
             usePeerConnectionsStore().currentSelectedPeer === peer.id
               ? `border-2 `
               : ``
@@ -147,7 +153,7 @@ function handleAddClient() {
       </div>
       <!-- files tag  -->
       <div
-        class="flex w-full basis-1/2 flex-col items-center justify-center space-y-8"
+        class="flex w-full flex-col items-center justify-center space-y-8 lg:basis-1/2"
       >
         <div class="relative flex w-full flex-col">
           <input
@@ -159,7 +165,7 @@ function handleAddClient() {
             @change="handleFileChange"
           />
           <div
-            class="m-2 flex flex-col space-y-4 rounded-lg border-2 p-16 text-center text-zinc-950 shadow-lg dark:border-gray-800 dark:bg-slate-900 dark:shadow-zinc-800 lg:m-0"
+            class="flex flex-col space-y-4 rounded-lg border-2 p-16 text-center text-zinc-950 dark:border-gray-800 dark:bg-slate-900 dark:shadow-zinc-800 lg:m-0 lg:shadow-lg"
           >
             <div
               class="rounded-2xl bg-blue-500 p-2 text-xl font-bold text-white"
@@ -199,11 +205,16 @@ function handleAddClient() {
         </button>
       </div>
     </div>
-    <div class="flex w-full flex-row space-x-24 p-8">
+    <!-- Portal Logs -->
+    <div
+      class="my-6 flex min-w-full flex-col lg:my-0 lg:flex-row lg:space-x-24 lg:p-8"
+    >
       <div
-        class="flex basis-1/2 flex-col rounded-lg border-2 p-8 shadow-lg dark:border-gray-800 dark:shadow-zinc-800"
+        class="flex flex-col space-y-4 rounded-lg border-2 px-5 py-6 dark:border-gray-800 dark:shadow-zinc-800 lg:basis-1/2 lg:space-y-8 lg:p-8 lg:shadow-lg"
       >
-        <div class="mb-4 text-2xl font-bold text-zinc-950 dark:text-zinc-50">
+        <div
+          class="mb-2 text-2xl font-bold text-zinc-950 dark:text-zinc-50 lg:mb-4"
+        >
           Portal Logs
         </div>
         <div
