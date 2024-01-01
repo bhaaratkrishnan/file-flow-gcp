@@ -10,10 +10,10 @@ import { notificationMessageType } from "~/composables/types/peerTypes";
     v-if="aiStudioStore().promptResponse.length > 0"
   >
     <div
-      class="mx-28 flex w-1/2 flex-col items-center justify-center rounded-lg border-2 bg-clip-text p-8 text-xl font-normal shadow-lg dark:border-gray-800 dark:bg-slate-900 dark:text-zinc-50 dark:shadow-zinc-800"
+      class="mx-4 flex w-full flex-col items-center justify-center rounded-lg border-2 bg-clip-text px-5 py-6 text-xl font-normal shadow-lg dark:border-gray-800 dark:bg-slate-900 dark:text-zinc-50 dark:shadow-zinc-800 lg:mx-28 lg:w-1/2 lg:p-8"
       markdown="1"
     >
-      <div class="dark:text-zinc-50">
+      <div class="dark:text-zinc-50 text-justify">
         {{ aiStudioStore().promptResponse }}
       </div>
       <div class="my-4">

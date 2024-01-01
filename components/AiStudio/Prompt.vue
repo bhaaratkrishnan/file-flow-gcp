@@ -34,7 +34,7 @@ onMounted(() => {
           "
           name=""
           id=""
-          class="border-2 p-3 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 dark:border-gray-800 rounded-lg dark:bg-slate-900"
+          class="w-full rounded-lg border-2 p-3 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 dark:border-gray-800 dark:bg-slate-900"
           rows="5"
           placeholder="Try out your prompts here!"
         ></textarea>
@@ -61,7 +61,7 @@ onMounted(() => {
       <button
         v-else
         @click="useAiStudioStore.sendPrompt()"
-        class="gradient-gemini rounded-lg  px-4 py-2 font-bold text-white shadow-lg hover:shadow transition dark:text-blue-950"
+        class="gradient-gemini rounded-lg px-4 py-2 font-bold text-white shadow-lg transition hover:shadow dark:text-blue-950"
       >
         Prompt
       </button>

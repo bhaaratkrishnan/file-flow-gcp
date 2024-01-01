@@ -4,7 +4,8 @@ const data = ref<String | undefined>(undefined);
 const emits = defineEmits(["submitted", "notification"]);
 const fileName = ref("");
 function handleFileChange() {
-  const files = (document.getElementById("upload-file") as HTMLInputElement).files;
+  const files = (document.getElementById("upload-file") as HTMLInputElement)
+    .files;
   if (files === null) {
     return;
   }
@@ -13,13 +14,14 @@ function handleFileChange() {
 async function handleClick() {
   loading.value = true;
   const formData = new FormData();
-  const files = (document.getElementById("upload-file") as HTMLInputElement).files;
+  const files = (document.getElementById("upload-file") as HTMLInputElement)
+    .files;
   if (files === null) {
     return;
   }
   if (files[0].size >= 2 * 1024 * 1024) {
     emits("notification", "File is more than 2mB");
-    loading.value = false
+    loading.value = false;
     return;
   }
   console.log("Exited");
@@ -33,52 +35,58 @@ async function handleClick() {
   if (response.code === 200) {
     copyToClipboard(data.value as string);
     emits("notification");
-    emits("submitted")
+    emits("submitted");
   }
 }
 </script>
 <template>
-  <div class="basis-1/2 items-center justify-center flex flex-col">
+  <div class="mx-2 flex flex-col items-center justify-center lg:basis-1/2">
     <form
       @submit.prevent="handleClick"
-      class="space-y-8 flex flex-col items-center"
+      class="flex w-full flex-col items-center space-y-8"
     >
-      <div class="relative flex flex-col">
+      <div class="relative flex w-full flex-col lg:w-fit">
         <input
           type="file"
-          class="absolute opacity-0 cursor-pointer inset-0"
+          class="absolute inset-0 cursor-pointer opacity-0"
           name="upload-file"
           id="upload-file"
           required
           @change="handleFileChange"
         />
         <div
-          class="flex flex-col m-2 lg:m-0 p-16 text-zinc-950 shadow-lg text-center space-y-4 border-2 dark:border-gray-800 dark:bg-slate-900 dark:shadow-zinc-800 rounded-lg"
+          class="flex w-full flex-col space-y-4 rounded-lg border-2 p-16 text-center text-zinc-950 shadow-lg dark:border-gray-800 dark:bg-slate-900 dark:shadow-zinc-800 lg:m-0"
         >
-          <div class="p-2 text-xl text-white font-bold bg-blue-500 rounded-2xl">
+          <div class="rounded-2xl bg-blue-500 p-2 text-xl font-bold text-white">
             <Icon
               name="material-symbols:drive-folder-upload-outline"
               class="text-3xl"
             />
             Upload File
           </div>
-          <div class="text-zinc-600 dark:text-zinc-400">Or drop your files here</div>
+          <div class="text-zinc-600 dark:text-zinc-400">
+            Or drop your files here
+          </div>
           <div class="text-zinc-950 dark:text-zinc-50">{{ fileName }}</div>
         </div>
       </div>
       <button
-        class="gradient-accent text-white dark:shadow-zinc-600 shadow-lg  font-bold px-3 py-2 text-xl rounded-lg"
+        class="gradient-accent rounded-lg px-3 py-2 text-xl font-bold text-white shadow-lg dark:shadow-zinc-600"
       >
         Upload
       </button>
     </form>
     <button
-      class="my-8 p-4 dark:text-zinc-50 dark:bg-gray-800 dark:border-gray-900 border-2 rounded-xl"
+      class="my-8 rounded-xl border-2 p-4 dark:border-gray-900 dark:bg-gray-800 dark:text-zinc-50"
       v-if="data || loading"
-      @click="() => {if(!loading){
-          copyToClipboard(data as string);
-          emits('notification');
-        }}"
+      @click="
+        () => {
+          if (!loading) {
+            copyToClipboard(data as string);
+            emits('notification');
+          }
+        }
+      "
     >
       <LoadingSpinner v-if="loading" />
       <span v-else>{{ data }}</span>

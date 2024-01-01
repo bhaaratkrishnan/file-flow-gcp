@@ -16,12 +16,12 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex flex-col items-start rounded-lg border-2 p-8 text-zinc-950 shadow-lg transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:text-zinc-50 dark:shadow-zinc-800 lg:m-0 lg:w-1/3"
+    class="flex flex-col items-start rounded-lg border-2 px-5 py-6 text-zinc-950 transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:text-zinc-50 dark:shadow-zinc-800 lg:m-0 lg:w-1/3 lg:p-8 lg:shadow-lg"
   >
     <!-- <div class="mb-4 text-2xl font-bold">Today's Stats</div> -->
     <LoadingSpinner v-if="pending" />
     <div v-else>
-      <div class="my-2 font-medium text-2xl text-blue-600 dark:text-blue-300">
+      <div class="my-2 text-xl font-medium text-blue-600 dark:text-blue-300">
         Client IP Address :
         <span class="font-mono text-green-500 dark:text-green-400">{{
           userData?.ip

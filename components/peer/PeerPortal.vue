@@ -70,7 +70,7 @@ function handleAddClient() {
           type="text"
           autofocus
           placeholder="Enter Peer ID"
-          class="rounded-lg border-2 p-2 shadow-lg dark:border-zinc-600 dark:bg-slate-900 dark:text-white dark:shadow-zinc-800"
+          class="w-2/3 rounded-lg border-2 p-2 shadow-lg dark:border-zinc-600 dark:bg-slate-900 dark:text-white dark:shadow-zinc-800"
           name="peer-client-name"
           v-model="currentPeerId"
           @keydown.enter="handleConnectToPeer"
@@ -108,7 +108,7 @@ function handleAddClient() {
     >
       <!-- connected clients tab  -->
       <div
-        class="flex w-full flex-col space-y-6 rounded-lg border-2 px-5 py-6 dark:border-gray-800 dark:shadow-zinc-800 lg:basis-1/2 lg:space-y-8 lg:p-8 lg:shadow-lg"
+        class="flex w-full flex-col space-y-6 rounded-lg border-2 px-3 py-6 dark:border-gray-800 dark:shadow-zinc-800 lg:basis-1/2 lg:space-y-8 lg:p-8 lg:shadow-lg"
       >
         <div class="text-2xl font-bold text-zinc-950 dark:text-zinc-50 lg:mb-2">
           Connected Clients

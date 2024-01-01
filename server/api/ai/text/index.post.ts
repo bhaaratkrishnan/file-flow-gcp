@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
       for await (const chunk of promptResponse) {
         if (
           chunk.candidates.length > 0 &&
+          chunk.candidates[0].content.parts !== undefined &&
           chunk.candidates[0].content.parts.length > 0
         ) {
           controller.enqueue(chunk.candidates[0].content.parts[0].text);
