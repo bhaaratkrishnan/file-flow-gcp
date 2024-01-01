@@ -98,11 +98,12 @@ onMounted(() => {
         href="https://github.com/bhaaratkrishnan/file-flow-gcp"
       >
         <button class="font-mono font-medium text-zinc-950 dark:text-zinc-50">
-          <Icon name="mdi:github" class="text-xl dark:text-zinc-50" /> Github
+          <Icon name="mdi:github" class="text-2xl dark:text-zinc-50" /> Github
         </button>
       </a>
-      <button @click="changeMode">
-        <Icon :name="currentThemeModeIcon" class="text-xl dark:text-zinc-50" />
+      <button @click="changeMode" class="dark:text-zinc-50">
+        <Icon :name="currentThemeModeIcon" class="text-2xl dark:text-zinc-50" />
+        Theme
       </button>
     </div>
   </div>
