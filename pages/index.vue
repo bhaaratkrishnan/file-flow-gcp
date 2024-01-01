@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { checkConnectivity } from '~/composables/network';
+
+onMounted(() => {
+  checkConnectivity();
+})
 useHead({
   title: "FileFlow",
 });
@@ -7,13 +12,13 @@ definePageMeta({
 });
 </script>
 <template>
-  <!-- <h1>Share Safe</h1>
-  
-  {{ data }} -->
-  <HomeHeroSection />
-  <ClientOnly>
-    <HomeGetStarted />
-    <Notification />
-  </ClientOnly>
-  <HomeWhatIsFileFlow />
+  <div>
+    <VitePwaManifest />
+    <HomeHeroSection />
+    <ClientOnly>
+      <HomeGetStarted />
+      <Notification />
+    </ClientOnly>
+    <HomeWhatIsFileFlow />
+  </div>
 </template>

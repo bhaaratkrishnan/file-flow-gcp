@@ -1,6 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { checkConnectivity } from '~/composables/network';
+
+onMounted(() => {
+  checkConnectivity();
+})
+</script>
 <template>
   <div>
+    <VitePwaManifest />
+
     <Navbar />
     <ClientOnly>
       <div class="my-12 flex flex-col items-center justify-center">
