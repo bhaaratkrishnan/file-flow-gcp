@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {
-  usePeerStore,
-  usePeerConnectionsStore,
-  useNotificationStore,
-} from "~/composables/stores/peerStore";
+import { usePeerStore } from "~/composables/stores/peerStore";
+import { usePeerConnectionsStore } from "~/composables/stores/peerConnectionStore";
+import { useNotificationStore } from "~/composables/stores/notificationStore";
 import { notificationMessageType } from "~/composables/types/peerTypes";
 const currentPeerId = ref("");
 const clientId = ref("");
@@ -17,6 +15,10 @@ function handleFileChange(event: Event) {
   const tempEvent = event.target as HTMLInputElement;
   if (tempEvent.files) {
     fileSelected.value = tempEvent.files[0];
+    useNotificationStore().addNotification({
+      type: notificationMessageType.success,
+      data: "File Selected",
+    });
     console.log(fileSelected.value.name);
   }
 }
@@ -31,6 +33,7 @@ function handleConnectToPeer() {
   }
   if (!peerStore.peerConnectionStatus) {
     peerStore.connectPeer({ id: currentPeerId.value });
+    useCookie("peerId", { maxAge: 864000 }).value = currentPeerId.value;
   }
 }
 
@@ -44,6 +47,11 @@ function handleAddClient() {
   }
   peerStore.connectToAnotherPeer({ id: clientId.value });
 }
+onMounted(() => {
+  if (useCookie("peerId").value) {
+    currentPeerId.value = useCookie("peerId").value ?? "";
+  }
+});
 </script>
 
 <template>
@@ -119,7 +127,7 @@ function handleAddClient() {
           <input
             placeholder="Enter Client ID"
             type="text"
-            class="rounded-lg border-2 p-2 shadow-lg dark:border-zinc-600 dark:bg-slate-900 dark:text-white dark:shadow-zinc-800"
+            class="h-fit rounded-lg border-2 p-2 shadow-lg dark:border-zinc-600 dark:bg-slate-900 dark:text-white dark:shadow-zinc-800"
             v-model="clientId"
             @keydown.enter="handleAddClient"
           />

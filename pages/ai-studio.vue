@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { checkConnectivity } from '~/composables/network';
-
-onMounted(() => {
-  checkConnectivity();
-})
+useHead({
+  title: "AI Studio",
+  meta: [
+    {
+      name: "description",
+      content: "AI Studio",
+    },
+  ],
+});
 </script>
 <template>
   <div>

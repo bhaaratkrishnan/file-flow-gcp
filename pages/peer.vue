@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { checkConnectivity } from "~/composables/network";
-
-onMounted(() => {
-  checkConnectivity();
+useHead({
+  title: "Peer Portal",
+  meta: [
+    {
+      name: "description",
+      content: "AI Studio",
+    },
+  ],
 });
 </script>
 <template>

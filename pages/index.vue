@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { checkConnectivity } from '~/composables/network';
-
-onMounted(() => {
-  checkConnectivity();
-})
 useHead({
   title: "FileFlow",
+});
+useSeoMeta({
+  title: "FileFlow",
+  description:
+    "FileFlow is a file sharing platform powered by Google Cloud Platform.",
+  ogTitle: "FileFlow",
+  ogDescription:
+    "FileFlow is a file sharing platform powered by Google Cloud Platform.",
 });
 definePageMeta({
   layout: "home-layout",

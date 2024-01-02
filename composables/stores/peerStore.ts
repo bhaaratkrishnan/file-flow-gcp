@@ -1,16 +1,10 @@
-import Peer, { DataConnection, PeerOptions, PeerErrorType } from "peerjs";
+import Peer, { PeerOptions, PeerErrorType } from "peerjs";
 import { defineStore } from "pinia";
-import {
-  peerDataMessageType,
-  type fileDataType,
-  type peerConnectionType,
-  type peerDataType,
-  type notificationType,
-  notificationMessageType,
-} from "~/composables/types/peerTypes";
-import { saveAs } from "file-saver";
-import { v4 as uuid4 } from "uuid";
+import { notificationMessageType } from "~/composables/types/peerTypes";
+import { usePeerConnectionsStore } from "./peerConnectionStore";
+import { useNotificationStore } from "./notificationStore";
 
+const runtimeConfig = useRuntimeConfig();
 const peerConfig: PeerOptions = {
   host: "peer-server-otcrggkcra-el.a.run.app",
   port: 443,
@@ -19,21 +13,15 @@ const peerConfig: PeerOptions = {
   config: {
     iceServers: [
       {
-        // urls: runtimeConfig.public.stunUrl,
-        url: "stun:34.16.23.24:3478",
-        urls: "stun:34.16.23.24:3478",
+        urls: runtimeConfig.public.stunUrl,
+        url: runtimeConfig.public.stunUrl,
       },
       {
         url: "turn:34.16.23.24:3478",
-        urls: "turn:34.16.23.24:3478",
-        username: "guest",
-        credential: "somepassword",
+        urls: runtimeConfig.public.turnUrl,
+        username: runtimeConfig.public.turnUsername,
+        credential: runtimeConfig.public.turnPassword,
       },
-      // {
-      //   url: runtimeConfig.public.turnUrl,
-      //   username: runtimeConfig.public.turnUsername,
-      //   credential: runtimeConfig.public.turnPassword,
-      // },
     ],
   },
 };
@@ -113,7 +101,6 @@ export const usePeerStore = defineStore("peer", () => {
 
     if (conn === undefined) {
       console.log("Conn is undefined");
-
       useNotificationStore().addNotification({
         type: notificationMessageType.error,
         data: "Peer not available",
@@ -122,7 +109,6 @@ export const usePeerStore = defineStore("peer", () => {
     }
     conn.on("open", () => {
       console.log("Conn open in peer store function");
-
       useNotificationStore().addNotification({
         type: notificationMessageType.success,
         data: `Connected to ${id}`,
@@ -149,199 +135,3 @@ export const usePeerStore = defineStore("peer", () => {
     disconnectPeer,
   };
 });
-
-export const usePeerConnectionsStore = defineStore("peerConnections", () => {
-  const currentSelectedPeer = ref<string>("");
-  const peerConnections = ref<peerConnectionType[]>([]);
-  const filesShared = ref<
-    {
-      id: string;
-      name: string;
-      size: number;
-      type: string;
-      status: boolean;
-      send: boolean;
-      peerId: string;
-    }[]
-  >([]);
-
-  function addPeerConnection({
-    id,
-    conn,
-  }: {
-    id: string;
-    conn: DataConnection;
-  }) {
-    console.log("Peer Connection Function");
-
-    peerConnections.value.push({
-      id,
-      conn,
-      connected: true,
-    });
-    conn.on("data", async (data) => {
-      console.log("Data Received");
-      console.log(data);
-      const peerMessage = data as peerDataType;
-      if (peerMessage.type === peerDataMessageType.file) {
-        const fileData = peerMessage.data as fileDataType;
-        const fileObj = await toFile(fileData);
-        saveAs(fileObj, fileData.name);
-        filesShared.value.push({
-          id: fileData.id,
-          name: fileData.name,
-          size: fileData.size,
-          type: fileData.type,
-          status: true,
-          send: false,
-          peerId: id,
-        });
-        filesShared.value.reverse();
-        sendToPeer(id, {
-          type: peerDataMessageType.ack,
-          data: fileData.id,
-        });
-      } else if (peerMessage.type === peerDataMessageType.ack) {
-        filesShared.value.forEach((e) => {
-          if (e.id === peerMessage.data) {
-            console.log(e);
-
-            e.status = true;
-          }
-        });
-      }
-    });
-    conn.on("error", (err) => {
-      console.log(err.type);
-      console.log(err.message);
-    });
-    conn.on("close", () => {
-      peerConnections.value = peerConnections.value.filter((e) => {
-        if (e.id === id) {
-          return false;
-        }
-        return true;
-      });
-      useNotificationStore().addNotification({
-        type: notificationMessageType.error,
-        data: `Client ${id} Disconnected`,
-      });
-    });
-  }
-
-  function sendToPeer(id: string, peerMessage: peerDataType) {
-    if (id === "") {
-      useNotificationStore().addNotification({
-        type: notificationMessageType.error,
-        data: `Please Select a Peer`,
-      });
-      return false;
-    }
-    if (!usePeerStore().peerConnectionStatus) {
-      useNotificationStore().addNotification({
-        type: notificationMessageType.error,
-        data: `Peer Not Connected`,
-      });
-      return false;
-    }
-    if (
-      usePeerConnectionsStore().peerConnections.filter((e) => e.id === id)
-        .length === 0
-    ) {
-      useNotificationStore().addNotification({
-        type: notificationMessageType.error,
-        data: `Peer ID Not Connected`,
-      });
-      return false;
-    }
-    peerConnections.value.forEach(async (element) => {
-      if (element.id === id) {
-        element.conn?.send(peerMessage);
-      }
-    });
-    return true;
-  }
-  async function sendFileToPeer({ data }: { data: File }) {
-    const base64File = await toBase64(data);
-    const fileData: fileDataType = {
-      id: uuid4(),
-      name: data.name,
-      type: data.type,
-      size: data.size,
-      data: base64File,
-    };
-    const peerMessage: peerDataType = {
-      type: peerDataMessageType.file,
-      data: fileData,
-    };
-    const sendToPeerResponse = sendToPeer(
-      currentSelectedPeer.value,
-      peerMessage,
-    );
-    console.log(sendToPeerResponse);
-
-    if (sendToPeerResponse) {
-      filesShared.value.push({
-        id: fileData.id,
-        name: fileData.name,
-        size: fileData.size,
-        type: fileData.type,
-        status: false,
-        send: true,
-        peerId: currentSelectedPeer.value,
-      });
-      filesShared.value.reverse();
-    }
-  }
-  function $reset() {
-    peerConnections.value.forEach((e) => {
-      e.conn?.close();
-    });
-    peerConnections.value = [];
-    filesShared.value = [];
-    currentSelectedPeer.value = "";
-  }
-  return {
-    peerConnections,
-    addPeerConnection,
-    sendToPeer,
-    sendFileToPeer,
-    currentSelectedPeer,
-    filesShared,
-    $reset,
-  };
-});
-
-export const useNotificationStore = defineStore("notification", () => {
-  const notifications = ref<notificationType[]>([]);
-  const addNotification = ({ type, data }: notificationType) => {
-    const id = uuid4();
-    notifications.value = [{ id, type, data }, ...notifications.value];
-    setTimeout(() => {
-      notifications.value = notifications.value.filter((e) => {
-        if (e.id === id) {
-          return false;
-        }
-        return true;
-      });
-    }, 3500);
-  };
-  return { notifications, addNotification };
-});
-
-
-async function toBase64(file: File): Promise<string | ArrayBuffer> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result!);
-    reader.onerror = reject;
-  });
-}
-
-async function toFile(fileData: fileDataType): Promise<File> {
-  const res: Response = await fetch(fileData.data as string);
-  const blob: Blob = await res.blob();
-  const file: File = new File([blob], fileData.name, { type: fileData.type });
-  return file;
-}

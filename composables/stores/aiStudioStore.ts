@@ -1,5 +1,5 @@
 import { notificationMessageType } from "~/composables/types/peerTypes";
-import { useNotificationStore } from "~/composables/stores/peerStore";
+import { useNotificationStore } from "~/composables/stores/notificationStore";
 
 export const aiStudioStore = defineStore("aiStudioStore", () => {
   const currentPrompt = ref<string>("");
