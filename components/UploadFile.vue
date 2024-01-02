@@ -46,6 +46,7 @@ async function handleClick() {
       class="flex w-full flex-col items-center space-y-8"
     >
       <div class="relative flex w-full flex-col lg:w-fit">
+        <label for="upload-file" hidden>Upload File Label</label>
         <input
           type="file"
           class="absolute inset-0 cursor-pointer opacity-0"

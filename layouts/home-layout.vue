@@ -1,24 +1,23 @@
 <script setup lang="ts">
 useHead({
-  bodyAttrs:{
-    class:"dark:bg-gray-900"
-  }
-})
+  bodyAttrs: {
+    class: "dark:bg-gray-900",
+  },
+});
 </script>
 
 <template>
   <div
-    class="flex relative min-h-screen  dark:bg-[url('~/assets/images/dark-bg.jpg')] bg-[url('~/assets/images/light-bg.jpg')] bg-center bg-cover"
+    class="relative flex min-h-screen bg-[url('~/assets/images/light-bg.webp')] bg-cover bg-center dark:bg-[url('~/assets/images/dark-bg.webp')]"
   >
-    <!-- <img src="~/assets/images/light-bg.jpg" alt="" /> -->
     <div
-      class="absolute backdrop-blur-3xl backdrop-brightness-95 inset-0 flex flex-col"
+      class="absolute inset-0 flex flex-col backdrop-blur-3xl backdrop-brightness-95"
     >
       <Navbar />
       <!-- heading  -->
       <slot />
       <!-- footer  -->
-     <Footer />
+      <Footer />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNotificationStore } from "~/composables/stores/peerStore";
+import { useNotificationStore } from "~/composables/stores/notificationStore";
 import { notificationMessageType } from "~/composables/types/peerTypes";
 </script>
 

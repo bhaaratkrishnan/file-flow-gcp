@@ -27,7 +27,7 @@ useHead({
           <div class="dark:text-zinc-50">Powered by</div>
           <div>
             <img
-              src="~/assets/images/gemini-logo.png"
+              src="/images/gemini-logo.png"
               alt=""
               class="h-10 w-28 object-contain"
             />

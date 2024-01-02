@@ -173,20 +173,29 @@ export const aiStudioStore = defineStore("aiStudioStore", () => {
       data: `Prompting Gemini`,
     });
     loading.value = true;
-    let response: Response;
+    let response: Response = {} as Response;
     // If promptType is image
-    if (currentPromptType.value === "IMAGE") {
-      // If file type is supported, send prompt
-      response = await imagePrompt({
-        imageData: currrentFileContents.value,
-        imageType: currentFileType.value!,
-        prompt: currentPrompt.value,
+    try {
+      if (currentPromptType.value === "IMAGE") {
+        // If file type is supported, send prompt
+        response = await imagePrompt({
+          imageData: currrentFileContents.value,
+          imageType: currentFileType.value!,
+          prompt: currentPrompt.value,
+        });
+      } else {
+        response = await textPrompt(
+          currentPrompt.value,
+          currrentFileContents.value,
+        );
+      }
+    } catch (err) {
+      useNotificationStore().addNotification({
+        type: notificationMessageType.error,
+        data: `Error in sending prompt`,
       });
-    } else {
-      response = await textPrompt(
-        currentPrompt.value,
-        currrentFileContents.value,
-      );
+      loading.value = false;
+      return;
     }
     const reader = response.body!.getReader();
     while (true) {
@@ -223,27 +232,35 @@ async function imagePrompt({
   imageData: string;
   prompt: string;
 }) {
-  const response = await fetch(`/api/ai/image`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      imageType: imageType,
-      imageData: imageData,
-      prompt: prompt,
-    }),
-  });
-  return response;
+  try {
+    const response = await fetch(`/api/ai/image`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        imageType: imageType,
+        imageData: imageData,
+        prompt: prompt,
+      }),
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
 }
 
 async function textPrompt(prompt: string, fileContents: string) {
-  const response = await fetch(`/api/ai/text`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(prompt + "\n" + fileContents),
-  });
-  return response;
+  try {
+    const response = await fetch(`/api/ai/text`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prompt + "\n" + fileContents),
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
 }
