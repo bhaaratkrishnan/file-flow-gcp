@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  nitro:{
-    compressPublicAssets:true
+  nitro: {
+    compressPublicAssets: true,
   },
   devtools: { enabled: true },
   runtimeConfig: {
@@ -15,8 +15,13 @@ export default defineNuxtConfig({
       storageBucketName: "",
     },
   },
-  appConfig: {},
-
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
@@ -28,7 +33,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   pwa: {
     manifest: {
-      name: "FileFlow : File Transfer and More!",
+      name: "FileFlow",
       short_name: "FileFlow",
       description:
         "FileFlow is a file transfer app that allows you to send files to your friends and family using Google Cloud",

@@ -2,6 +2,7 @@ import { Storage } from "@google-cloud/storage";
 
 const storage = new Storage();
 const bucket = storage.bucket(useRuntimeConfig().public.storageBucketName);
+console.log("Bucket Name: ", useRuntimeConfig().public.storageBucketName);
 
 export async function downloadFileIntoMemory(
   fileName: string,

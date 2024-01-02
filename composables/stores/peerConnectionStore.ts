@@ -42,7 +42,6 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
     });
     conn.on("data", async (data) => {
       console.log("Data Received");
-      console.log(data);
       const peerMessage = data as peerDataType;
       if (peerMessage.type === peerDataMessageType.file) {
         const fileData = peerMessage.data as fileDataType;
@@ -58,6 +57,10 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
           peerId: id,
         });
         filesShared.value.reverse();
+        useNotificationStore().addNotification({
+          type: notificationMessageType.success,
+          data: `File ${fileData.name} Received`,
+        });
         sendToPeer(id, {
           type: peerDataMessageType.ack,
           data: fileData.id,
@@ -65,8 +68,10 @@ export const usePeerConnectionsStore = defineStore("peerConnections", () => {
       } else if (peerMessage.type === peerDataMessageType.ack) {
         filesShared.value.forEach((e) => {
           if (e.id === peerMessage.data) {
-            console.log(e);
-
+            useNotificationStore().addNotification({
+              type: notificationMessageType.success,
+              data: `File ${e.name} Sent Successfully`,
+            });
             e.status = true;
           }
         });

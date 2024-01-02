@@ -12,12 +12,23 @@ const peerConfig: PeerOptions = {
   debug: 3,
   config: {
     iceServers: [
+      // {
+      //   // urls: runtimeConfig.public.stunUrl,
+      //   url: "stun:34.16.23.24:3478",
+      //   urls: "stun:34.16.23.24:3478",
+      // },
+      // {
+      //   url: "turn:34.16.23.24:3478",
+      //   urls: "turn:34.16.23.24:3478",
+      //   username: "guest",
+      //   credential: "somepassword",
+      // },
       {
-        urls: runtimeConfig.public.stunUrl,
         url: runtimeConfig.public.stunUrl,
+        urls: runtimeConfig.public.stunUrl,
       },
       {
-        url: "turn:34.16.23.24:3478",
+        url: runtimeConfig.public.turnUrl,
         urls: runtimeConfig.public.turnUrl,
         username: runtimeConfig.public.turnUsername,
         credential: runtimeConfig.public.turnPassword,
@@ -25,6 +36,7 @@ const peerConfig: PeerOptions = {
     ],
   },
 };
+console.log(peerConfig);
 
 export const usePeerStore = defineStore("peer", () => {
   const peer = ref<Peer>();
