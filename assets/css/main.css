@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient-primary {
+  @apply bg-gradient-to-tr from-blue-500 via-red-500 to-yellow-500;
+}
+
+.gradient-accent {
+  @apply bg-gradient-to-tl from-blue-500 via-red-500 to-yellow-500 transition hover:from-blue-600 hover:via-red-600 hover:to-yellow-600 disabled:cursor-not-allowed;
+}
+
+.gradient-gemini {
+  @apply bg-gradient-to-b from-[#E9D5CA] to-[#1576FB] transition-all ease-in-out hover:from-[#1576FB] hover:to-[#E9D5CA];
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.8s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}

@@ -1,0 +1,28 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+deploy.sh
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example*
+env
+project_steps.txt
+google_cloud_up.sh
