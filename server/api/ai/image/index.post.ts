@@ -15,6 +15,8 @@ export default defineEventHandler(async (event) => {
         prompt: body.prompt,
       });
       for await (const chunk of promptResponse) {
+        if(chunk.candidates.length === 0) continue;
+        if(chunk.candidates[0].content.parts.length === 0) continue;
         controller.enqueue(chunk.candidates[0].content.parts[0].text);
       }
       controller.close();

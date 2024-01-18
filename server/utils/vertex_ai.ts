@@ -47,7 +47,7 @@ export async function geminiVisionPrompt({
     generation_config: { max_output_tokens: 2048, temperature: 0.9, top_p: 1 },
   });
   imageType = "image/" + imageType;
-
+  
   const response = await generativeModel.generateContentStream({
     contents: [
       {
